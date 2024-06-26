@@ -1,15 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MDBContainer, MDBCard, MDBCardBody, MDBInput } from "mdb-react-ui-kit";
 import Button from "react-bootstrap/Button";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SignUp = () => {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [rollNo, setRollNo] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = () => {
-    console.log({ name, email });
+    axios
+      .post("http://127.0.0.1:8000/students/", { name: name, roll: rollNo })
+      .then((result) => {
+        if (result.status === 201) {
+          localStorage.setItem(
+            "user",
+            JSON.stringify({ name: result.data.name, roll: result.data.roll })
+          );
+          console.log(result.data.roll);
+          navigate("/instructions");
+        }
+      })
+      .catch((err) => {
+        console.log("Error", err);
+      });
   };
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+
+    const user1 = JSON.parse(user);
+    console.log(user1);
+    // if(user){
+    //   navigate("/instructions")
+    // }
+  }, []);
   return (
     <MDBContainer
       fluid
@@ -38,22 +64,20 @@ const SignUp = () => {
             wrapperClass="mb-4"
             size="lg"
             id="form2"
-            type="email"
+            type="text"
             placeholder="Cloud ID"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={rollNo}
+            onChange={(e) => setRollNo(e.target.value)}
           />
 
-          <Link to="/instructions">
-            <Button
-              className="mb-4 w-100"
-              size="lg"
-              variant="primary"
-              onClick={handleSubmit}
-            >
-              Send Email
-            </Button>
-          </Link>
+          <Button
+            className="mb-4 w-100"
+            size="lg"
+            variant="primary"
+            onClick={handleSubmit}
+          >
+            Send Email
+          </Button>
         </MDBCardBody>
       </MDBCard>
     </MDBContainer>

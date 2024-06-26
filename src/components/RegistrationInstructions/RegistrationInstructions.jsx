@@ -1,15 +1,21 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./RegistrationInstructions.css";
 import { Link } from "react-router-dom";
 
 const RegistrationInstructions = () => {
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const userData = localStorage.getItem("user");
+    const userr = JSON.parse(userData);
+    setUser(userr);
+  }, []);
   return (
     <div className="main-instruction-container">
       <div className="main-instruction-content">
         <div className="welcome-container">
-          <h1 className="welcome-heading">Welcome, Sana Mashhood!</h1>
+          <h1 className="welcome-heading">Welcome,{user?.name}</h1>
         </div>
-        <div className="instructions-container">
+        <div className="instructions- container">
           <p className="instructions-text">
             You can only register once. The camera will remain on for 30
             seconds, kindly ensure that your background is plain and

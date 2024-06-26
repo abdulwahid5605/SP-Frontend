@@ -1,0 +1,77 @@
+.App {
+    background-image: url('https://www.europarl.europa.eu/resources/library/images/20230607PHT95601/20230607PHT95601_original.jpg');
+    /* Adjust background styles as needed */
+    height: auto;
+
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: center;
+    /* margin-top: 20px; */
+  }
+  
+  .navbar a {
+    color: #ffffff; /* light black */
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 18px;
+  }
+  
+  .navbar a.active {
+    color: #000000; /* dark black */
+    border-bottom: 2px solid #000000; /* dark black underline */
+  }
+  
+  .slider {
+    margin-top: 30px;
+  }
+  
+  .slide {
+    display: none;
+  }
+  
+  .slide.active {
+    display: block;
+    text-align: center;
+  }
+  
+  .slide h2 {
+    color: #000000; /* black */
+    text-transform: uppercase;
+  }
+  
+  .slide-content {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .slide-content img {
+    max-width: 100%;
+    width: 80vh;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  .prev-btn,
+  .next-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    color: #000000; /* black */
+    background-color: #00ff00; /* green */
+    border: none;
+    cursor: pointer;
+  }
+  
+  .prev-btn {
+    background-color: #0000ff; /* blue */
+  }
+  
+  .prev-btn:hover,
+  .next-btn:hover {
+    opacity: 0.8;
+  }
+  

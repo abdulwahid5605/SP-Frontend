@@ -1,15 +1,36 @@
 import React from "react";
 import "./Capture.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
 
 const Capture = () => {
+  const navigate = useNavigate();
+
+  function handleCaptureClick() {
+    axios
+      .post("http://127.0.0.1:8000/predict/", null)
+      .then((response) => {
+        if (response.status === 200) {
+          toast.error("Attendence is already done");
+        } else if (response.status === 201) {
+          toast.success("Attendence has been marked");
+          localStorage.setItem("attendance", JSON.stringify(response.data));
+          navigate("/attendance-marked");
+        }
+      })
+      .catch((error) => {
+        console.log("error", error);
+        toast.error("Oops something went wrong!, please try again.");
+      });
+  }
   return (
     <div className="main-capture-container">
       <div className="main-capture-content">
         <div className="button-container">
-          <Link to="/attendance-marked">
-            <button className="capture-button">Start Capture</button>
-          </Link>
+          <button onClick={handleCaptureClick} className="capture-button">
+            Start Capture
+          </button>
         </div>
         <div className="image-capture-container">
           <div className="image-border">

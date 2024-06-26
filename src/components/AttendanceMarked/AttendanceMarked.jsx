@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./AttendanceMarked.css";
 
 const AttendanceMarked = () => {
+  const [attenDetail, setAttenDetail] = useState(null);
+
+  useEffect(() => {
+    const detail = localStorage.getItem("attendance");
+    setAttenDetail(detail);
+  }, []);
   return (
     <div className="main-attendace-container">
       <div className="main-attendace-content">
@@ -13,11 +19,11 @@ const AttendanceMarked = () => {
           />
         </div>
         <div className="text-container">
-          <h1 className="name-heading">Sana Mashhood</h1>
+          <h1 className="name-heading">{attenDetail?.name}</h1>
           <p className="attendance-text">
             Your attendance for{" "}
-            <span className="highlighted-date">21 - June - 2024</span> has been
-            successfully marked.
+            <span className="highlighted-date">{attenDetail?.date}</span> has
+            been successfully marked.
           </p>
         </div>
         <div className="link-container">
